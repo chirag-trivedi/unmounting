@@ -1,17 +1,53 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+
+class Lifecycle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: 0
+    }
+
+    this.setNewValue = this.setNewValue.bind(this);
+  }
+
+  setNewValue() {
+    this.setState({ data: this.state.data + 1 })
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.setNewValue}>Add</button>
+        <Content number={this.state.data}></Content>
+      </div>
+    )
+  }
+
+}
+
+class Content extends React.Component {
+  render() {
+    return (
+      <div>
+        <h3> {this.props.number} </h3>
+      </div>
+    )
+  }
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+
+  <Lifecycle />,
+
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+setTimeout(() => {
+  ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+}, 10000
+
+);
+
+
